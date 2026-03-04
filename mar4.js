@@ -17,6 +17,7 @@ var numSpecial = function(mat) {
     {   
         console.log("hello wold")
         let currentArray=mat[i]
+        console.log("the current array is here",currentArray)
         // run other loop inside it
         for(let j=0;j<currentArray.length;j++)
         {
@@ -29,16 +30,26 @@ var numSpecial = function(mat) {
         if(currentArray[j]===1)
         {
             isOneisFoundinRow=true
+            console.log("value of j when be pushing",j)
             holdColumnIndexCount.push(j)
         }
         // checking row only in the end of current Iteration to avoid one's wrong checks
         if(isOneisFoundinRow===true && j===currentArray.length-1)
-        {
+        {  
+
+            console.log("zeroes in row valuehere",ZeroesinRow);
+            
             // we first check whether 
             // the thing are zeros in row or not o
             // ther we skip the iteration
             // we don,t do anything further operation
-            if(ZeroesinRow.length===2)
+            //special cases let,s solve them
+            let rowlenthEqual=mat.length
+            if(currentArray.length<mat.length)
+            {
+                 rowlenthEqual=currentArray.length
+            }
+            if(ZeroesinRow.length===rowlenthEqual-1)
             {
                 //hold the row index value in another array 
                 let rowIndexCurrent=i
@@ -52,7 +63,13 @@ var numSpecial = function(mat) {
             // storing current Array
             // access the current variable
             let currentValue=mat[k][holdColumnIndexCount[0]]
-            console.log("j count now ",j)
+            console.log("the curren value kya hai basiclly",currentValue);
+            console.log("whole hold column index",holdColumnIndexCount);
+            
+            console.log("teh value insdie hold column index",holdColumnIndexCount[0]);
+            
+            console.log("yellow",ZeroesinColumn);
+            
             if(currentValue===0)
             {
                 ZeroesinColumn.push(currentValue)
@@ -61,11 +78,13 @@ var numSpecial = function(mat) {
             {
                 isOneisFoundinColumn=true
             }
-            if(isOneisFoundinColumn===true && k===mat[k].length-1)
-            {
-                if(ZeroesinColumn.length==2)
+
+            if(isOneisFoundinColumn===true && k===mat.length-1)
+            {   
+                
+                if(ZeroesinColumn.length===mat.length-1)
                 {
-                    specialPosition.push([rowIndexCurrent,j])
+                    specialPosition.push([rowIndexCurrent,holdColumnIndexCount[0]])
                     break;
                 }
             }
@@ -78,6 +97,10 @@ var numSpecial = function(mat) {
 
         }
         }
+        // clearing the previous values to avoid same reference problem
+        ZeroesinRow=[]
+        ZeroesinColumn=[]
+        holdColumnIndexCount=[]
         console.log("here spei",specialPosition);
         
     }
@@ -87,6 +110,5 @@ var numSpecial = function(mat) {
 };
 
 
-
-let output=numSpecial([[1,0,0],[0,1,0],[0,0,1]])
+let output=numSpecial([[0,0,0,0,0,1,0,0],[0,0,0,0,1,0,0,1],[0,0,0,0,1,0,0,0],[1,0,0,0,1,0,0,0],[0,0,1,1,0,0,0,0]])
 console.log(output);
